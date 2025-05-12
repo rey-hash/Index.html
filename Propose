@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Do You Love Me?</title>
+  <style>
+    body {
+      font-family: 'Dancing Script', cursive;
+      background-color: pink;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      width: 300px;
+      position: relative;
+    }
+
+    .tenor-gif-embed {
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .yes {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    .no {
+      background-color: #f44336;
+      color: white;
+      font-weight: 600;
+      font-style: italic;
+      opacity: 0.7;
+    }
+
+    .rejected {
+      background-color: #b71c1c;
+      color: white;
+      font-weight: 600;
+      font-style: italic;
+      text-decoration: line-through;
+      opacity: 1;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Page 1 (Initial Page) -->
+  <div class="container" id="page1">
+    <div class="tenor-gif-embed" 
+         data-postid="15488998239354870297" 
+         data-share-method="host" 
+         data-aspect-ratio="1.23267" 
+         data-width="100%">
+      <a href="https://tenor.com/view/cute-pinch-so-fluffy-gif-15488998239354870297">Cute Pinch GIF</a> from 
+      <a href="https://tenor.com/search/cute-gifs">Cute GIFs</a>
+    </div> 
+
+    <h1 id="question">Will you be my valentime?</h1>
+
+    <div class="buttons" id="button-group">
+      <button class="yes" id="yes-btn" onclick="chooseYes()">Yes</button>
+      <button class="no" id="no-btn" onclick="chooseNo()">No</button>
+    </div>
+  </div>
+
+  <!-- Page 2 (After Yes) -->
+  <div class="container hidden" id="page2">
+    <div class="tenor-gif-embed" 
+         data-postid="4497629156674472289" 
+         data-share-method="host" 
+         data-aspect-ratio="1.19139" 
+         data-width="100%">
+      <a href="https://tenor.com/view/kiss-gif-4497629156674472289">Kiss GIF</a> from 
+      <a href="https://tenor.com/search/kiss-gifs">Kiss GIFs</a>
+    </div> 
+
+    <h1>Yaaay..... Love you so much baby 💖🥰💖</h1>
+  </div>
+
+  <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+  <script>
+    let yesSize = 100;
+    let noSize = 100;
+    let noClicked = false;
+
+    // Function for the "Yes" button click
+    function chooseYes() {
+      // Hide Page 1 and show Page 2
+      document.getElementById("page1").classList.add("hidden");
+      document.getElementById("page2").classList.remove("hidden");
+    }
+
+    // Function for the "No" button click (same as before)
+    function chooseNo() {
+      yesSize *= 1.15;
+      noSize *= 0.85;
+      const yesBtn = document.getElementById("yes-btn");
+      const noBtn = document.getElementById("no-btn");
+      const container = document.querySelector(".container");
+
+      yesBtn.style.fontSize = `${yesSize * 0.16}px`;
+      yesBtn.style.padding = `${yesSize * 0.1}px ${yesSize * 0.2}px`;
+
+      noBtn.style.fontSize = `${noSize * 0.16}px`;
+      noBtn.style.padding = `${noSize * 0.1}px ${noSize * 0.2}px`;
+
+      noBtn.classList.add("rejected");
+
+      const maxX = container.clientWidth - noBtn.offsetWidth;
+      const maxY = container.clientHeight - noBtn.offsetHeight;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+
+      noClicked = true;
+    }
+
+    window.onbeforeunload = function (event) {
+      if (noClicked) {
+        const message = "You rejected me! Are you sure you want to leave?";
+        event.returnValue = message;
+        return message;
+      }
+    };
+  </script>
+
+</body>
+</html>
